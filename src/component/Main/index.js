@@ -1,27 +1,31 @@
 import React, { Component } from 'react';
 import FlatButton from 'material-ui/Button';
+import { Button } from 'reactstrap';
+import Icon from 'material-ui/Icon';
 import axios from "axios/index";
-
-
-import { withStyles } from 'material-ui/styles';
+import { Container, Row, Col } from 'reactstrap';
 import Avatar from 'material-ui/Avatar';
-import deepOrange from 'material-ui/colors/deepOrange';
+import Styled from 'styled-components';
 
 
-const styles = {
-    avatar: {
-        margin: 10,
-    },
-    orangeAvatar: {
-        margin: 10,
-        color: '#fff',
-        backgroundColor: deepOrange[500],
-    },
-    row: {
-        display: 'flex',
-        justifyContent: 'center',
-    },
-};
+const StyleBody = Styled(Col)`
+    background:white;
+`;
+
+const StyleAvatar = Styled(Avatar)`
+        margin: 10px;
+        width: 60px!important;
+        height: 60px!important;
+        color: '#fff';
+        margin:auto;
+        margin-top:20px;
+        margin-bottom:40px;
+`;
+
+const StyleButton = Styled(Button)`
+    width:100%;
+`
+
 
 class Main extends Component {
     constructor(props){
@@ -30,6 +34,7 @@ class Main extends Component {
             idCall: null
         }
         this.help = this.help.bind(this)
+        this.stop = this.stop.bind(this)
     }
     help(){
         axios.post('https://noodledistress.herokuapp.com/call/'+this.props.user.id).then((res)=>{
@@ -47,12 +52,30 @@ class Main extends Component {
 
     render(){
         const { first_name } = this.props.user
-        return (<div>
-            <Avatar className="orangeAvatar">{first_name}</Avatar>
-            <FlatButton label="Default" onClick={this.help}> CAll </FlatButton>
-            <FlatButton label="Default" onClick={this.stop}> stop call </FlatButton>
-        </div>);
+        return (
+            <Container>
+                <Row>
+                    <StyleBody sm={{ size: 6, order: 0, offset: 3 }}>
+                        <div>
+                            <Row>
+                                <Col sm={{ size: 3, oder:0 , offset: 4 }}>
+                                    <StyleAvatar>{first_name}</StyleAvatar>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col>
+                                    <StyleButton color="success" onClick={this.help}>Call <Icon>call</Icon></StyleButton>
+                                </Col>
+                                <Col>
+                                    <StyleButton color="danger" onClick={this.stop}>Stop Call <Icon>call_end</Icon></StyleButton>
+                                </Col>
+                            </Row>
+                        </div>
+                    </StyleBody>
+                </Row>
+            </Container>
+            );
     }
 }
 
-export default withStyles(styles)(Main);
+export default Main;

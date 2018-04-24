@@ -9,16 +9,16 @@ class App extends Component {
     constructor(props){
         super(props)
         this.state = {
-            // user: {
-            //     "id": 3,
-            //     "login": "hjxn",
-            //     "first_name": "huijie",
-            //     "excuse": "grtgtrgrtht",
-            //     "longitude": 0,
-            //     "latitude": 0,
-            //     "distance": 200
-            // },
-            user:null,
+            user: {
+                "id": 3,
+                "login": "hjxn",
+                "first_name": "huijie",
+                "excuse": "grtgtrgrtht",
+                "longitude": 0,
+                "latitude": 0,
+                "distance": 200
+            },
+            // user:null,
             route: 'main'
         }
         this.changeUser = this.changeUser.bind(this)
