@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Button } from 'reactstrap';
 import Icon from 'material-ui/Icon';
-import axios from "axios/index";
 import { Container, Row, Col } from 'reactstrap';
 import Avatar from 'material-ui/Avatar';
 import Styled from 'styled-components';
-
+import {createProcess,deleteProcess} from '../../_commun/src/process/Call'
+import {connect} from 'react-redux';
 
 const StyleBody = Styled(Col)`
     background:white;
@@ -36,17 +36,12 @@ class Main extends Component {
         this.stop = this.stop.bind(this)
     }
     help(){
-        axios.post('https://noodledistress.herokuapp.com/call/'+this.props.user.id).then((res)=>{
-            this.setState({
-                idCall:res.data.id
-            })
-        })
+        createProcess(this.props.dispatch,this.props.user.userInfo.id)
     }
 
     stop(){
-        axios.delete('https://noodledistress.herokuapp.com/call/'+this.state.idCall).then((res)=>{
-            console.log(res.status)
-        })
+
+        deleteProcess(this.props.dispatch,this.props.call.call.id)
     }
 
     render(){
@@ -78,4 +73,4 @@ class Main extends Component {
     }
 }
 
-export default Main;
+export default connect()(Main);

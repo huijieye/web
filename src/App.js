@@ -4,7 +4,8 @@ import Login from './component/Login';
 import Main from './component/Main';
 import Profil from './component/Profil';
 import Signup from './component/SignUp';
-
+import Calls from './component/Calls'
+import {loginProcess} from './_commun/src/process/User'
 import {connect} from 'react-redux';
 
 class App extends Component {
@@ -23,7 +24,9 @@ class App extends Component {
         })
     }
   render() {
+
     if(this.props.user.userInfo === null){
+
         if(this.state.route === "signup"){
             return (
                 <Layout>
@@ -41,12 +44,13 @@ class App extends Component {
     let view = null;
     switch (route){
         case 'main':
-           view = <Main user={this.props.user} />
+           view = <Main user={this.props.user} call={this.props.call} />
             break;
         case 'profil':
             view = <Profil user={this.props.user}/>
             break;
         case 'answers':
+            view = <Calls user={this.props.user} call={this.props.call}/>
             break;
 
     }
@@ -60,7 +64,8 @@ class App extends Component {
 
 const mapStateToPops = (state)=>{
     return {
-        user:state.user
+        user:state.user,
+        call:state.call
     }
 }
 

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import FlatButton from 'material-ui/Button';
 import { Button, Form, FormGroup, Label, Input, Container, Row, Col } from 'reactstrap';
 import Title from '../style/Title'

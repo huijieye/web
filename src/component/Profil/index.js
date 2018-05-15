@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import FlatButton from 'material-ui/Button';
-import axios from "axios/index";
-
+import {updateProcess} from '../../_commun/src/process/User'
+import {connect} from 'react-redux';
 
 class Profil extends Component {
 
@@ -18,7 +18,7 @@ class Profil extends Component {
             distance: parseInt(this.distanceInput.value, 10)
         })
 
-       axios.put('https://noodledistress.herokuapp.com/user/',JSON.stringify(newUser))
+        updateProcess(this.props.dispatch,JSON.stringify(newUser))
     }
 
     render(){
@@ -37,4 +37,4 @@ class Profil extends Component {
     }
 }
 
-export default Profil;
+export default connect()(Profil);

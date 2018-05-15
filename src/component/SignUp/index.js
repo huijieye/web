@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import FlatButton from 'material-ui/Button';
-import axios from 'axios';
 import { Button, Form, FormGroup, Label, Input, Container, Row, Col } from 'reactstrap';
 import StyleCol from '../style/LoginCol'
 import Title from '../style/Title'
+import {signupProcess} from '../../_commun/src/process/User'
+import {connect} from 'react-redux';
 
 class Signup extends Component {
 
@@ -18,10 +19,8 @@ class Signup extends Component {
             first_name:this.nameInput.value,
             excuse:this.excuseInput.value
         }
-        axios.post('https://noodledistress.herokuapp.com/user/',JSON.stringify(user)).then((res)=>{
-            console.log(res)
-            this.props.success(res.data)
-        })
+
+        signupProcess(this.props.dispatch,JSON.stringify(user))
     }
 
     render(){
@@ -35,15 +34,15 @@ class Signup extends Component {
                     <Form>
                         <FormGroup>
                             <Label>Identifiant</Label>
-                            <Input type="text" ref={(input)=>this.loginInput=input} />
+                            <input type="text" ref={(input)=>this.loginInput=input} />
                         </FormGroup>
                         <FormGroup>
                             <Label>Nom</Label>
-                            <Input type="text" ref={(input)=>this.nameInput=input} />
+                            <input type="text" ref={(input)=>this.nameInput=input} />
                         </FormGroup>
                         <FormGroup>
                             <Label>Excuse</Label>
-                            <Input type="text" ref={(input)=>this.excuseInput=input} />
+                            <input type="text" ref={(input)=>this.excuseInput=input} />
                         </FormGroup>
 
                         <Button onClick={this.addUser}>Submit</Button>
@@ -55,4 +54,4 @@ class Signup extends Component {
     }
 }
 
-export default Signup;
+export default connect()(Signup);
