@@ -12,11 +12,12 @@ class Profil extends Component {
     }
 
     updateUser(){
-        const newUser = Object.assign({}, this.props.user.userInfo, {
+        const newUser = {
+            ...this.props.user.userInfo,
             first_name: this.nameInput.value,
             excuse: this.excuseInput.value,
             distance: parseInt(this.distanceInput.value, 10)
-        })
+        }
 
         updateProcess(this.props.dispatch,JSON.stringify(newUser))
     }

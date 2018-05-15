@@ -5,7 +5,9 @@ import { Container, Row, Col } from 'reactstrap';
 import Avatar from 'material-ui/Avatar';
 import Styled from 'styled-components';
 import {createProcess,deleteProcess} from '../../_commun/src/process/Call'
+import {updateProcess} from '../../_commun/src/process/User'
 import {connect} from 'react-redux';
+import {setWatch} from '../../_commun/src/actions/User'
 
 const StyleBody = Styled(Col)`
     background:white;
@@ -33,21 +35,36 @@ class Main extends Component {
             idCall: null
         }
         this.help = this.help.bind(this)
-        this.stop = this.stop.bind(this)
+        this.stop = this.stop.bind(this);
+
+        if(this.props.user.watch === null){
+            console.log('watching')
+            const watchId = navigator.geolocation.watchPosition((pos) => {
+                const newUser = {
+                    ...this.props.user.userInfo,
+                    latitude:pos.coords.latitude,
+                    longitude:pos.coords.longitude
+                }
+                updateProcess(this.props.dispatch,JSON.stringify(newUser))
+            })
+            this.props.dispatch( setWatch(watchId) )
+        }
     }
     help(){
         createProcess(this.props.dispatch,this.props.user.userInfo.id)
     }
 
     stop(){
-
         deleteProcess(this.props.dispatch,this.props.call.call.id)
     }
+
+
 
     render(){
 
         const { first_name } = this.props.user.userInfo
         return (
+
             <Container>
                 <Row>
                     <StyleBody sm={{ size: 6, order: 0, offset: 3 }}>
