@@ -5,29 +5,16 @@ import Main from './component/Main';
 import Profil from './component/Profil';
 import Signup from './component/SignUp';
 
+import {connect} from 'react-redux';
+
 class App extends Component {
     constructor(props){
         super(props)
         this.state = {
-            user: {
-                "id": 3,
-                "login": "hjxn",
-                "first_name": "huijie",
-                "excuse": "grtgtrgrtht",
-                "longitude": 0,
-                "latitude": 0,
-                "distance": 200
-            },
-            // user:null,
             route: 'main'
         }
-        this.changeUser = this.changeUser.bind(this)
+
         this.changeRoute = this.changeRoute.bind(this)
-    }
-    changeUser(user){
-        this.setState({
-            user
-        })
     }
 
     changeRoute(route){
@@ -36,7 +23,7 @@ class App extends Component {
         })
     }
   render() {
-    if(this.state.user === null){
+    if(this.props.user.userInfo === null){
         if(this.state.route === "signup"){
             return (
                 <Layout>
@@ -54,10 +41,10 @@ class App extends Component {
     let view = null;
     switch (route){
         case 'main':
-           view = <Main user={this.state.user} />
+           view = <Main user={this.props.user} />
             break;
         case 'profil':
-            view = <Profil user={this.state.user}/>
+            view = <Profil user={this.props.user}/>
             break;
         case 'answers':
             break;
@@ -71,4 +58,12 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToPops = (state)=>{
+    return {
+        user:state.user
+    }
+}
+
+
+
+export default connect(mapStateToPops)(App);

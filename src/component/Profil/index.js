@@ -12,7 +12,7 @@ class Profil extends Component {
     }
 
     updateUser(){
-        const newUser = Object.assign({}, this.props.user, {
+        const newUser = Object.assign({}, this.props.user.userInfo, {
             first_name: this.nameInput.value,
             excuse: this.excuseInput.value,
             distance: parseInt(this.distanceInput.value, 10)
@@ -22,7 +22,7 @@ class Profil extends Component {
     }
 
     render(){
-        const { first_name,excuse,distance } = this.props.user
+        const { first_name,excuse,distance } = this.props.user.userInfo
         return (<div>
             <label>Nom</label>
             <input type="text" defaultValue={first_name} ref={(input)=>this.nameInput = input}/>

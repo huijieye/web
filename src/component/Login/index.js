@@ -4,8 +4,8 @@ import FlatButton from 'material-ui/Button';
 import { Button, Form, FormGroup, Label, Input, Container, Row, Col } from 'reactstrap';
 import Title from '../style/Title'
 import StyleCol from '../style/LoginCol'
-
-
+import {loginProcess} from '../../_commun/src/process/User'
+import {connect} from 'react-redux';
 
 class Login extends Component {
     constructor(props){
@@ -15,10 +15,8 @@ class Login extends Component {
     }
 
     login(){
-        axios.get('https://noodledistress.herokuapp.com/user/login/'+this.nameInput.value)
-            .then((res) => {
-                this.props.success(res.data)
-            })
+        const login = this.nameInput.value
+        loginProcess(this.props.dispatch,login)
     }
     render(){
         return (
@@ -31,7 +29,7 @@ class Login extends Component {
                         <Form>
                             <FormGroup>
                                 <Label>Identifiant</Label>
-                                <Input type="text" ref={(input) => this.nameInput = input} />
+                                <input type="text" ref={(input) => this.nameInput = input} />
                             </FormGroup>
 
                             <Button onClick={this.login}>Submit</Button>
@@ -44,4 +42,4 @@ class Login extends Component {
     }
 }
 
-export default Login;
+export default connect()(Login);

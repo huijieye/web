@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import FlatButton from 'material-ui/Button';
 import { Button } from 'reactstrap';
 import Icon from 'material-ui/Icon';
 import axios from "axios/index";
@@ -51,7 +50,8 @@ class Main extends Component {
     }
 
     render(){
-        const { first_name } = this.props.user
+
+        const { first_name } = this.props.user.userInfo
         return (
             <Container>
                 <Row>
