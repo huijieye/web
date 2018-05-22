@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Imenu from './component/Imenu'
 import { Container, Row, Col } from 'reactstrap';
 import Styled from 'styled-components';
+import {connect} from "react-redux";
 
 const StyleApp = Styled(Col)`
     background:#e5ffef;
@@ -15,7 +16,10 @@ class Layout extends Component {
                 <Row>
                     <StyleApp>
                         <div>
-                            <Imenu changeRoute={this.props.changeRoute}></Imenu>
+                            {
+                                this.props.user.userInfo != null ?
+                                    <Imenu changeRoute={this.props.changeRoute}></Imenu> : null
+                            }
                             {this.props.children}
                         </div>
                     </StyleApp>
@@ -25,4 +29,10 @@ class Layout extends Component {
     }
 }
 
-export default Layout;
+const mapStateToProps = (state) => {
+    return {
+        user:state.user
+    }
+}
+
+export default connect(mapStateToProps)(Layout);

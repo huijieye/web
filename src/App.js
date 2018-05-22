@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import Layout from './component/Layout';
 import Login from './component/Login';
 import Main from './component/Main';
 import Profil from './component/Profil';
 import Signup from './component/SignUp';
-import Calls from './component/Calls'
-import {loginProcess} from './_commun/src/process/User'
+import Calls from './component/Calls';
 import {connect} from 'react-redux';
 
 class App extends Component {
@@ -50,7 +48,7 @@ class App extends Component {
             view = <Profil user={this.props.user}/>
             break;
         case 'answers':
-            view = <Calls user={this.props.user} call={this.props.call}/>
+            view = <Calls user={this.props.user} call={this.props.call} />
             break;
 
     }
